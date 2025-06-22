@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from habits.models import Habit
-from habits.validators import (SimultaneousSelectionValidator,
-                               LeadTimeValidator,
-                               NiceHabitAssociatedValidator,
-                               NiceHabitRewardOrAssocitedValidator,
-                               PeriodicityValidator)
+from habits.validators import (
+    SimultaneousSelectionValidator,
+    LeadTimeValidator,
+    NiceHabitAssociatedValidator,
+    NiceHabitRewardOrAssocitedValidator,
+    PeriodicityValidator,
+)
 
 
 class HabitSerializers(serializers.ModelSerializer):
@@ -17,5 +19,5 @@ class HabitSerializers(serializers.ModelSerializer):
             LeadTimeValidator(field=fields),
             NiceHabitAssociatedValidator(field=fields),
             NiceHabitRewardOrAssocitedValidator(field=fields),
-            PeriodicityValidator(field=fields)
+            PeriodicityValidator(field=fields),
         ]

@@ -13,9 +13,7 @@ class HabitTestCase(APITestCase):
         """Создание тестовой модели Пользователя (с авторизацией) и Привычки"""
 
         self.user = User.objects.create(
-            email="test@test.com",
-            password="testpassword",
-            tg_chat_id="1567728836"
+            email="test@test.com", password="testpassword", tg_chat_id="1567728836"
         )
         self.client.force_authenticate(user=self.user)
 
@@ -25,7 +23,7 @@ class HabitTestCase(APITestCase):
             time="18:00:00",
             action="Пойти в магазин за покупками",
             periodicity=1,
-            duration=60
+            duration=60,
         )
 
         self.habit_nice_false = Habit.objects.create(
@@ -37,7 +35,7 @@ class HabitTestCase(APITestCase):
             related=self.habit,
             periodicity=1,
             duration=60,
-            is_public=False
+            is_public=False,
         )
 
     def test_create_habit(self):
@@ -57,7 +55,7 @@ class HabitTestCase(APITestCase):
             "wednesday": True,
             "thursday": True,
             "friday": True,
-            "saturday": True
+            "saturday": True,
         }
 
         response = self.client.post(url, data=data)
@@ -82,7 +80,7 @@ class HabitTestCase(APITestCase):
             "time": "18:00:00",
             "action": "Пойти в магазин за покупками",
             "duration": 180,
-            "periodicity": 8
+            "periodicity": 8,
         }
 
         response = self.client.post(url, data=data)
@@ -107,7 +105,7 @@ class HabitTestCase(APITestCase):
             "wednesday": False,
             "thursday": False,
             "friday": False,
-            "saturday": False
+            "saturday": False,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -126,7 +124,7 @@ class HabitTestCase(APITestCase):
             "is_nice": True,
             "duration": 60,
             "periodicity": 1,
-            "prize": "выпить коньяка"
+            "prize": "выпить коньяка",
         }
 
         response = self.client.post(url, data=data)
@@ -147,7 +145,7 @@ class HabitTestCase(APITestCase):
             "related": self.habit,
             "duration": 60,
             "periodicity": 1,
-            "prize": "выпить еще больше коньяка"
+            "prize": "выпить еще больше коньяка",
         }
         response = self.client.post(url, data=data2)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
