@@ -1,3 +1,40 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .pagination import MyPageHabitPagination
+from .serializers import HabitSerializers
+from .models import Habit
+from rest_framework.permissions import IsAuthenticated
+from users.permissions import IsOwners
 
-# Create your views here.
+
+class HabitCreateAPIView(generics.CreateAPIView):
+    serializer_class = HabitSerializers
+    queryset = Habit.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class HabitUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = HabitSerializers
+    queryset = Habit.objects.all()
+    permission_classes = [IsAuthenticated, IsOwners]
+
+
+class HabitDestroyAPIView(generics.DestroyAPIView):
+    serializer_class = HabitSerializers
+    queryset = Habit.objects.all()
+    permission_classes = [IsAuthenticated, IsOwners]
+
+
+class HabitListAPIView(generics.ListAPIView):
+    serializer_class = HabitSerializers
+    queryset = Habit.objects.all()
+    pagination_class = MyPageHabitPagination
+    permission_classes = [IsAuthenticated]
+
+
+class HabitRetrieveAPIView(generics.RetrieveAPIView):
+    serializer_class = HabitSerializers
+    queryset = Habit.objects.all()
+    permission_classes = [IsAuthenticated]
