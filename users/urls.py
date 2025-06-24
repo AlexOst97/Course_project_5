@@ -7,23 +7,15 @@ from rest_framework.permissions import AllowAny
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path("register/", UserCreateAPIView.as_view(), name="register"),
-    path(
-        "login/",
-        TokenObtainPairView.as_view(
-            permission_classes=[
-                AllowAny,
-            ]
-        ),
-        name="login",
-    ),
-    path(
-        "refresh/",
-        TokenRefreshView.as_view(
-            permission_classes=[
-                AllowAny,
-            ]
-        ),
-        name="refresh",
-    ),
+    path("register/",
+         UserCreateAPIView.as_view(permission_classes=[AllowAny,]),
+         name="register"),
+
+    path("login/",
+         TokenObtainPairView.as_view(permission_classes=[AllowAny,]),
+         name="login",),
+
+    path("refresh/",
+         TokenRefreshView.as_view(permission_classes=[AllowAny,]),
+         name="refresh",),
 ]

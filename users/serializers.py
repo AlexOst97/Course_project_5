@@ -8,3 +8,4 @@ class UserSerializers(serializers.ModelSerializer):
         model = User
         fields = "__all__"
         read_only_fields = ("is_active",)
+        extra_kwargs = {"password": {'write_only': True}}

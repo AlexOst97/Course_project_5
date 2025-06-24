@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "drf_yasg",
     "drf_spectacular",
+    "corsheaders",
 ]
 
 
@@ -39,6 +40,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -99,7 +101,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Настройки для users
+# Настройка users
 AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
@@ -112,7 +114,7 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",  # Документация API
 }
 
-# Настройки для Celery
+# Настройка Celery
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
@@ -125,7 +127,7 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 
-# Документация API
+# Настройка документации API
 SPECTACULAR_SETTINGS = {
     "TITLE": "Your Project API",
     "DESCRIPTION": "Your project description",
@@ -134,3 +136,13 @@ SPECTACULAR_SETTINGS = {
 }
 
 TELEGRAM_BOT_ID = os.getenv("TELEGRAM_BOT_ID")
+
+# Настройка CORS
+CORS_ALLOWED_ORIGINS = [
+    "https://read-only.example.com",
+    "https://read-and-write.example.com",
+]
+
+CSRF_TRUSTED_ORIGINS = ["https://read-and-write.example.com", ]
+
+CORS_ALLOW_ALL_ORIGINS = False
