@@ -7,6 +7,7 @@ from rest_framework.permissions import AllowAny
 class UserCreateAPIView(generics.CreateAPIView):
     serializer_class = UserSerializers
     queryset = User.objects.all()
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         user = serializer.save(is_active=True)
@@ -17,7 +18,6 @@ class UserCreateAPIView(generics.CreateAPIView):
 class UserUpdateAPIView(generics.UpdateAPIView):
     serializer_class = UserSerializers
     queryset = User.objects.all()
-    permission_classes = [AllowAny]
 
 
 class UserDestroyAPIView(generics.DestroyAPIView):
