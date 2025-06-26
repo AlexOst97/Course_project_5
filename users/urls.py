@@ -1,0 +1,21 @@
+from users.apps import UsersConfig
+from django.urls import path
+from .views import UserCreateAPIView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework.permissions import AllowAny
+
+app_name = UsersConfig.name
+
+urlpatterns = [
+    path("register/",
+         UserCreateAPIView.as_view(permission_classes=[AllowAny,]),
+         name="register"),
+
+    path("login/",
+         TokenObtainPairView.as_view(permission_classes=[AllowAny,]),
+         name="login",),
+
+    path("refresh/",
+         TokenRefreshView.as_view(permission_classes=[AllowAny,]),
+         name="refresh",),
+]
