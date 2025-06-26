@@ -1,6 +1,7 @@
 from rest_framework import generics
 from users.models import User
 from users.serializers import UserSerializers
+from rest_framework.permissions import AllowAny
 
 
 class UserCreateAPIView(generics.CreateAPIView):
@@ -16,6 +17,7 @@ class UserCreateAPIView(generics.CreateAPIView):
 class UserUpdateAPIView(generics.UpdateAPIView):
     serializer_class = UserSerializers
     queryset = User.objects.all()
+    permission_classes = [AllowAny]
 
 
 class UserDestroyAPIView(generics.DestroyAPIView):
